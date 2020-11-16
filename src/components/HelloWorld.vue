@@ -60,14 +60,6 @@ export default {
         return
       }
       this.answer = 'Thinking...'
-      // var vm = this
-      // axios.get('https://yesno.wtf/api')
-      //   .then(function (response) {
-      //     vm.answer = _.capitalize(response.data.answer)
-      //   })
-      //   .catch(function (error) {
-      //     vm.answer = 'Error! Could not reach the API. ' + error
-      //   })
     }
   },
   computed: {
