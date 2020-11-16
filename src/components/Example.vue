@@ -1,11 +1,20 @@
 <template>
   <div class="hello">
-    <p>{{ message }}</p>
+    <!-- <ul id="example-1">
+      <li v-for="(dog, index) in dogs"  v-bind:item="dog.name" v-bind:index="index"  v-bind:key="dog.id">
+        {{ dog.name }}
+      </li>
+    </ul> -->
+
+    <ul>
+      <li v-for="todo in allTodos" v-bind:key='todo.id'>{{ todo.title }}</li>
+    </ul>
   </div>
 </template>
 
 <script>
 import HttpService from '../services/HttpService';
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
   name: 'Example',
@@ -15,20 +24,33 @@ export default {
   data() { 
     return {
       message: 'Example',
+      dogs: []
     }
   },
   created() {
     console.log('example process env', process.env);
+
     this.getDogs();
+    this.fetchTodos();
   },
   methods: {
+    ...mapActions(['fetchTodos']),
     getDogs: function() {
       HttpService.get('/dogs').then(response => {
-        console.log('response:', response)
-
+        this.dogs = response.data;
       })
+    },
+    increment: function() {
+      this.$store.commit('increment');
     }
-  }
+  },
+  computed: {
+    ...mapGetters(['allTodos']),
+    counter () {
+      console.log('this.$store:', this.$store)
+      return this.$store.state.counter
+    }
+  },
 }
 </script>
 

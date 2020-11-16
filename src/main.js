@@ -2,13 +2,19 @@ import Vue from 'vue'
 import App from './App.vue'
 import HelloWorld from './components/HelloWorld';
 import Example from './components/Example';
+import Dogs from './components/Dogs';
 import VueRouter from 'vue-router'
+import 'es6-promise/auto'
+import { createStore } from './store/index.js';
+import Vuex from 'vuex'
 
 Vue.use(VueRouter)
+Vue.use(Vuex);
 
 const routes = [
-  { path: '/', component: HelloWorld },
+  { path: '/hello-world', component: HelloWorld },
   { path: '/example', component: Example },
+  { path: '/', component: Dogs },
   { path: '*', redirect: '/' }
 ]
 
@@ -25,5 +31,6 @@ Vue.config.productionTip = false
 new Vue({
   render: h => h(App),
   router,
+  store: createStore(),
   components: { App }
 }).$mount('#app')
