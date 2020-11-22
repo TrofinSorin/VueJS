@@ -1,38 +1,38 @@
 <template>
   <div class="hello">
     <ul>
-      <li v-for="todo in allTodos" v-bind:key='todo.id'>{{ todo.title }}</li>
+      <li v-for="todo in allTodos" v-bind:key="todo.id">{{ todo.title }}</li>
     </ul>
   </div>
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import { mapGetters, mapActions } from "vuex";
 
 export default {
-  name: 'Example',
+  name: "Example",
   props: {
-    msg: String
+    msg: String,
   },
   data() {
     return {
-      message: 'Example',
-    }
+      message: "Example",
+    };
   },
   created() {
     this.fetchTodos();
   },
   methods: {
-    ...mapActions(['fetchTodos']),
+    ...mapActions(["fetchTodos"]),
   },
   computed: {
-    ...mapGetters(['allTodos']),
+    ...mapGetters(["allTodos"]),
   },
-}
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style scoped lang="scss">
 h3 {
   margin: 40px 0 0;
 }

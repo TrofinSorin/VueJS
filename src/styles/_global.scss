@@ -1,0 +1,369 @@
+@import "./colors";
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  -webkit-font-smoothing: auto;
+  -moz-osx-font-smoothing: auto;
+}
+
+html {
+  font-size: 62.5%;
+  line-height: 1.4 !important;
+  letter-spacing: -0.1px !important;
+}
+
+body {
+  font-size: 14px;
+  font-family: "MontserratRegular", "Helvetica Neue", "Arial", sans-serif;
+}
+
+body [class^="mat-"]:not(mat-icon),
+body [class*="mat-"]:not(mat-icon) {
+  font-family: "MontserratRegular", "Helvetica Neue", "Arial", sans-serif;
+}
+
+button {
+  background-color: transparent;
+  border: none;
+}
+
+input,
+textarea {
+  font-size: 1.6rem;
+}
+
+.cc_dialog {
+  background: map-get($greyPalette, "alto") !important;
+  height: auto;
+  max-width: 100% !important;
+  padding: 1.5rem !important;
+  width: 100%;
+
+  .cc_dialog_text {
+    font-size: 1.3rem !important;
+  }
+
+  .cc_b_ok {
+    background-color: map-get($bluePalette, "curious-blue") !important;
+  }
+}
+
+a {
+  &:hover,
+  &:focus {
+    text-decoration: none !important;
+  }
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.cursor-default {
+  cursor: default;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.height-full {
+  height: 100%;
+}
+
+.full-height {
+  height: 100vh;
+  overflow-y: hidden;
+}
+
+.relative {
+  position: relative;
+}
+
+.white-overlay {
+  position: relative;
+  top: 0;
+  width: 100%;
+
+  &:before {
+    background-color: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(0);
+    border-radius: 0.5rem;
+    content: "";
+    height: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: -1;
+  }
+}
+
+.MuiContainer-root {
+  padding: 0 !important;
+}
+
+.font-bold {
+  font-weight: bold;
+}
+
+.general-form {
+  input,
+  textarea {
+    color: map-get($greyPalette, "ebony-clay");
+    background: $white;
+    font-size: 1.6rem;
+    padding: 1.5rem 1.2rem;
+  }
+
+  .MuiOutlinedInput-notchedOutline,
+  textarea {
+    border: none;
+    border-radius: 0.5rem;
+    box-shadow: 0px 0px 9px 0 rgba(0, 0, 0, 0.2);
+  }
+
+  label {
+    font-size: 1.6rem;
+  }
+
+  .MuiTextField-root {
+    margin: 1rem 0 0 0;
+  }
+
+  .MuiInputBase-root {
+    background: $white;
+  }
+
+  textarea {
+    padding: 18.5px 14px;
+    resize: none;
+  }
+}
+
+@include placeholder {
+  color: map-get($greyPalette, "mid-gray");
+  font-family: $montserrat-regular;
+  font-size: 1.6rem;
+}
+
+.social-media-links {
+  flex-wrap: wrap;
+
+  .social-media-link {
+    align-items: center;
+    background-color: $white;
+    box-shadow: 0px 0px 6px 0 rgba(0, 0, 0, 0.3);
+    margin-bottom: 2rem !important;
+    flex-basis: 100%;
+    flex-wrap: wrap;
+    height: 5rem;
+    width: 100%;
+
+    @include respondto(phoneSmHeight) {
+      margin-bottom: 1rem !important;
+    }
+
+    @include flex($justify: center);
+  }
+
+  &.three-items {
+    a {
+      &:not(:last-of-type) {
+        margin-right: 2rem;
+      }
+    }
+  }
+}
+
+.no-margin {
+  margin: 0;
+}
+
+.mb-0 {
+  margin-bottom: 0;
+}
+
+.mt-0 {
+  margin-top: 0;
+}
+
+.radius100 {
+  border-radius: 100%;
+}
+
+//colors
+.athens-gray-bk {
+  background-color: map-get($greyPalette, "athens-gray");
+}
+
+.curious-blue-bk {
+  background-color: map-get($bluePalette, "curious-blue");
+}
+
+.yellow-border {
+  border: 5px solid map-get($yellowPalette, "sun");
+}
+
+.blue-gradient {
+  background: rgb(40, 190, 202);
+  background: linear-gradient(0deg, #48adc7 0%, #1376be 100%);
+}
+
+.light-blue-gradient {
+  background: rgb(39, 189, 201);
+  background: linear-gradient(
+    285deg,
+    rgba(39, 189, 201, 1) 0%,
+    rgba(39, 189, 201, 1) 100%
+  );
+
+  &-review {
+    background: linear-gradient(0deg, #27bdc9 0%, #48adc7 100%);
+  }
+}
+
+.bottom-section {
+  span,
+  a {
+    color: map-get($greyPalette, "ebony-clay");
+  }
+
+  span {
+    font-family: $montserrat-regular;
+    font-size: 1.5rem;
+
+    @include respondto(iphone5) {
+      font-size: 1.4rem;
+    }
+  }
+
+  a {
+    font-family: $montserrat-bold;
+    margin-bottom: 0;
+  }
+}
+
+.top-bar {
+  height: 5.2rem;
+  padding: 0 1.5rem;
+
+  h1 {
+    color: map-get($greyPalette, "ebony-clay");
+    font-family: $pacifico-regular;
+    font-size: 2.4rem;
+    margin: 0 0 0.5rem 0;
+  }
+}
+
+.btn-secondary {
+  background-color: $white !important;
+  color: map-get($greyPalette, "ebony-clay") !important;
+}
+
+.avatar-image {
+  border-radius: 100%;
+  height: 5.9rem;
+  width: 5.9rem;
+
+  &.blue {
+    background-color: map-get($bluePalette, "viking");
+  }
+
+  &.orange {
+    background-color: map-get($yellowPalette, "sun");
+  }
+}
+
+.back-section {
+  box-shadow: inset 0 -10px 10px -10px map-get($greyPalette, "iron");
+  padding: 3rem 1rem 1rem 1.5rem;
+
+  a {
+    color: map-get($bluePalette, "denim");
+    font-family: $montserrat-bold;
+    font-size: 1.5rem;
+
+    span {
+      margin-left: 0.5rem;
+    }
+  }
+}
+
+.background {
+  background-color: #f2f4f6;
+  height: 100vh;
+}
+
+.slick-dots {
+  margin-bottom: 1rem;
+  position: relative;
+  bottom: 0;
+
+  li {
+    margin: 0 !important;
+
+    button {
+      &:before {
+        font-size: 0.8rem;
+      }
+    }
+  }
+}
+
+//iphone fixes
+.ios-device {
+  border-bottom: 1px solid transparent;
+}
+
+.ios-device .saved-block .infinite-scroll-component {
+  padding-bottom: 12rem;
+}
+
+.disabled-button {
+  background: $white !important;
+  color: $black !important;
+}
+
+.pull-left {
+  float: left;
+}
+
+.pull-right {
+  float: right;
+}
+
+// FavIcon Heart Styles
+.is-active {
+  svg g {
+    g {
+      fill: map-get($redPalette, "froly");
+    }
+  }
+
+  span {
+    color: map-get($redPalette, "froly");
+  }
+}
+
+.MuiInputBase-input {
+  line-height: normal !important;
+
+  &::-webkit-input-placeholder {
+    line-height: normal !important;
+  }
+}
+
+.webkit-scrolling {
+  -webkit-overflow-scrolling: touch;
+}
+
+.testtt {
+  color: #1376be !important;
+}
