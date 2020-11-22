@@ -1,29 +1,9 @@
 {
   "dogs": [
     {
-      "id": 1,
-      "name": "Puffy",
-      "type": "Bichon"
-    },
-    {
       "id": 2,
       "name": "Elsa",
       "type": "Shih-Tzu"
-    },
-    {
-      "name": "Another Dog",
-      "type": "yey",
-      "id": 3
-    },
-    {
-      "name": "555",
-      "type": "555",
-      "id": 4
-    },
-    {
-      "name": "55522",
-      "type": "55522",
-      "id": 5
     }
   ]
 }

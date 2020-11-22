@@ -6,7 +6,9 @@ import Dogs from './components/Dogs';
 import VueRouter from 'vue-router'
 import 'es6-promise/auto'
 import { createStore } from './store/index.js';
-import Vuex from 'vuex'
+import Vuex from 'vuex';
+import "normalize.css";
+// import 'reset-css';
 
 Vue.use(VueRouter)
 Vue.use(Vuex);

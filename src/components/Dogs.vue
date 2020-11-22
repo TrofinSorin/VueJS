@@ -36,6 +36,7 @@
       <li style='width: 100%' v-for="(dog, index) in allDogs"  v-bind:item="dog.name" v-bind:index="index"  v-bind:key="dog.id">
         <p>Name: {{ dog.name }}</p>
         <p>Rasa: {{ dog.type }}</p>
+        <button @click="deleteDog(dog.id)">Delete</button>
       </li>
     </ul>
   </div>
@@ -59,7 +60,7 @@ export default {
     this.fetchDogs();
   },
   methods: {
-    ...mapActions(['fetchDogs', 'postDog']),
+    ...mapActions(['fetchDogs', 'postDog', 'deleteDog']),
     addDog: function() {
       const payload = {
         name: this.name,
@@ -88,7 +89,6 @@ ul {
 
 li {
   display: inline-block;
-  margin: 0 10px;
 }
 
 a {
