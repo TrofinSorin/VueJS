@@ -2,6 +2,17 @@ import axios from "axios";
 
 export default {
   API_PATH: process.env.VUE_APP_ENDPOINT,
+  getEndpoint(apiEndpoint, params) {
+    return axios
+      .get(apiEndpoint, params) // <--- Need this to return the promise
+      .then((response) => {
+        return response;
+      })
+      .catch((error) => {
+        console.log(error);
+        throw error.response; // <-- use throw to be able to use catch
+      });
+  },
   get(apiEndpoint, params) {
     return axios
       .get(this.API_PATH + apiEndpoint, params) // <--- Need this to return the promise
