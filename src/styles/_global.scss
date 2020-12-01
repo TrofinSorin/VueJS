@@ -12,24 +12,27 @@ body {
 }
 
 html {
-  font-size: 62.5%;
+  font-size: 62.5% !important;
   line-height: 1.4 !important;
   letter-spacing: -0.1px !important;
 }
 
 body {
-  font-size: 14px;
-  font-family: "MontserratRegular", "Helvetica Neue", "Arial", sans-serif;
-}
-
-body [class^="mat-"]:not(mat-icon),
-body [class*="mat-"]:not(mat-icon) {
+  font-size: 14px !important;
   font-family: "MontserratRegular", "Helvetica Neue", "Arial", sans-serif;
 }
 
 input,
 textarea {
   font-size: 1.6rem;
+}
+
+p {
+  margin: 1rem;
+}
+
+label {
+  margin: 1rem;
 }
 
 a {
@@ -173,4 +176,8 @@ a {
 
 .webkit-scrolling {
   -webkit-overflow-scrolling: touch;
+}
+
+.red-NICE {
+  color: red;
 }

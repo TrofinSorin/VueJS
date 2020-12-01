@@ -1,7 +1,10 @@
 <template>
   <div class="hello">
+    <h1>h1 test</h1>
     <ul>
-      <li v-for="todo in allTodos" v-bind:key="todo.id">{{ todo.title }}</li>
+      <li class="red-NICE" v-for="todo in allTodos" v-bind:key="todo.id">
+        {{ todo.title }}
+      </li>
     </ul>
   </div>
 </template>

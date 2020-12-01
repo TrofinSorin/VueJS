@@ -28,16 +28,22 @@
         <button @click="deleteDog(dog.id)">Delete</button>
       </li>
     </ul>
+
+    <Example></Example>
   </div>
 </template>
 
 <script>
 import { mapGetters, mapActions } from "vuex";
+import Example from "@components/Example";
 
 export default {
   name: "Dogs",
   props: {
     msg: String,
+  },
+  components: {
+    Example,
   },
   data() {
     return {

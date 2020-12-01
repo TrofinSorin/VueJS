@@ -24,7 +24,6 @@ const actions = {
     commit("addDog", responsePayload);
   },
   async deleteDog({ commit }, id) {
-    console.log("id:", id, commit);
     await HttpService.delete(`/dogs/${id}`).then((response) => {
       if (response) {
         // When Delete Dog 200 -> GET DOGS
