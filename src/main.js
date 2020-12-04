@@ -34,7 +34,7 @@ const routes = [
 // keep it simple for now.
 const router = new VueRouter({
   mode: "history",
-  routes, // short for `routes: routes`
+  routes: routes, // short for `routes: routes`
 });
 
 Vue.config.productionTip = false;

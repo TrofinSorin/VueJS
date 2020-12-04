@@ -6,6 +6,8 @@
         {{ todo.title }}
       </li>
     </ul>
+
+    <md-button class="md-raised md-primary">Primary</md-button>
   </div>
 </template>
 
