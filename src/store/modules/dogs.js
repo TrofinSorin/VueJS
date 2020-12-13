@@ -10,21 +10,25 @@ const getters = {
 
 const actions = {
   async fetchDogs({ commit }) {
-    const response = await HttpService.get("/dogs");
+    const response = await HttpService.get("/dogs/read");
 
     commit("setDogs", response.data);
   },
   async postDog({ commit }, payload) {
-    const dogResponse = await HttpService.post("/dogs", payload);
-    const responsePayload = {
-      ...dogResponse.data,
-      ...payload,
-    };
+    const dogResponse = await HttpService.post("/dogs/dog-create", payload);
 
-    commit("addDog", responsePayload);
+    if (dogResponse) {
+      const responsePayload = {
+        ...payload,
+      };
+
+      commit("addDog", responsePayload);
+
+      this.dispatch("fetchDogs");
+    }
   },
   async deleteDog({ commit }, id) {
-    await HttpService.delete(`/dogs/${id}`).then((response) => {
+    await HttpService.deleteById(`/dogs/delete`, id).then((response) => {
       if (response) {
         // When Delete Dog 200 -> GET DOGS
         commit("deleteDog", id);

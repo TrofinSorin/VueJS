@@ -7,8 +7,13 @@
       </p>
 
       <p>
-        <label for="type">Type</label>
-        <input id="type" v-model="type" type="text" name="type" />
+        <label for="type">Race</label>
+        <input id="type" v-model="race" type="text" name="race" />
+      </p>
+
+      <p>
+        <label for="type">Age</label>
+        <input id="type" v-model="age" type="text" name="age" />
       </p>
 
       <p>
@@ -24,7 +29,7 @@
         v-bind:key="dog.id"
       >
         <p class="testtt">Name: {{ dog.name }}</p>
-        <p>Rasa: {{ dog.type }}</p>
+        <p>Rasa: {{ dog.race }}</p>
         <button @click="deleteDog(dog.id)">Delete</button>
       </li>
     </ul>
@@ -43,7 +48,8 @@ export default {
   data() {
     return {
       name: null,
-      type: null,
+      race: null,
+      age: null,
     };
   },
   created() {
@@ -54,7 +60,8 @@ export default {
     addDog: function() {
       const payload = {
         name: this.name,
-        type: this.type,
+        race: this.race,
+        age: this.age,
       };
 
       this.postDog(payload);

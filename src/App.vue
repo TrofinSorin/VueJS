@@ -35,17 +35,7 @@ export default {
     console.log("mounted", this.$route.path);
     this.init = true;
   },
-  methods: {
-    tabChanged: function(id) {
-      console.log("id:", id);
-      console.log("this.init", this.init);
-      console.log("this.$route.path:", this.$route.path);
-      this.$router.push(id);
-    },
-    isPath(path) {
-      return this.$route.path === path;
-    },
-  },
+  methods: {},
 };
 </script>
 
