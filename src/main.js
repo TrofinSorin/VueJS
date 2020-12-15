@@ -1,7 +1,7 @@
 import Vue from "vue";
 import App from "./App.vue";
-import HelloWorld from "./components/HelloWorld";
 import Example from "./components/Example";
+import Example2 from "./components/Example2";
 import Dogs from "./components/Dogs";
 import VueRouter from "vue-router";
 import "es6-promise/auto";
@@ -16,15 +16,15 @@ import axios from "axios";
 import { getHeader } from "@services/WSSE/index";
 import { HTTP_CODES } from "./constants/http-codes";
 import Auth from "@services/Auth";
-import { uuid } from "uuidv4";
+import { v4 as uuid_v4 } from "uuid";
 
 Vue.use(VueMaterial);
 Vue.use(VueRouter);
 Vue.use(Vuex);
 
 const routes = [
-  { path: "/hello-world", component: HelloWorld },
   { path: "/example", component: Example },
+  { path: "/example2", component: Example2 },
   { path: "/", component: Dogs },
   { path: "*", redirect: "/" },
 ];
@@ -87,7 +87,7 @@ axios.interceptors.response.use(
     switch (status) {
       case HTTP_CODES.BAD_REQUEST:
         if (!Auth.getUserToken()) {
-          const generatedUserToken = uuid();
+          const generatedUserToken = uuid_v4();
 
           Auth.generateUserToken(generatedUserToken);
         }

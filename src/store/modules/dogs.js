@@ -36,6 +36,37 @@ const actions = {
       }
     });
   },
+  async editDog({ commit }, payload) {
+    let httpResponse = {};
+
+    await HttpService.put(`/dogs/edit-dog`, payload).then((response) => {
+      if (response) {
+        commit("editDog", payload);
+        this.dispatch("fetchDogs");
+
+        httpResponse.payload = payload;
+        httpResponse.response = response;
+      }
+    });
+
+    return httpResponse.response.status === 200 && httpResponse;
+  },
+  async patchDog({ commit }, payload) {
+    console.log("payload:", payload);
+    let httpResponse = {};
+
+    await HttpService.patch(`/dogs/patch-dog`, payload).then((response) => {
+      if (response) {
+        commit("patchDog", payload);
+        this.dispatch("fetchDogs");
+
+        httpResponse.payload = payload;
+        httpResponse.response = response;
+      }
+    });
+
+    return httpResponse.response.status === 200 && httpResponse;
+  },
 };
 
 const mutations = {
@@ -46,6 +77,8 @@ const mutations = {
 
     state.dogs.splice(index, 1);
   },
+  editDog: (state) => state,
+  patchDog: (state) => state,
 };
 
 export default {

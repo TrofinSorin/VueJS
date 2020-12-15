@@ -12,8 +12,8 @@
       </p>
 
       <p>
-        <label for="type">Age</label>
-        <input id="type" v-model="age" type="text" name="age" />
+        <label for="age">Age</label>
+        <input id="age" v-model="age" type="text" name="age" />
       </p>
 
       <p>
@@ -28,9 +28,12 @@
         v-bind:index="index"
         v-bind:key="dog.id"
       >
-        <p class="testtt">Name: {{ dog.name }}</p>
-        <p>Rasa: {{ dog.race }}</p>
+        <DogProperty v-bind:name="'Name'" v-bind:dog="dog"></DogProperty>
+        <DogProperty v-bind:name="'Race'" v-bind:dog="dog"></DogProperty>
+        <DogProperty v-bind:name="'Age'" v-bind:dog="dog"></DogProperty>
         <button @click="deleteDog(dog.id)">Delete</button>
+
+        <EditDog v-bind:dog="dog"></EditDog>
       </li>
     </ul>
   </div>
@@ -38,13 +41,18 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
+import EditDog from "@shared/EditDog";
+import DogProperty from "@shared/DogProperty";
 
 export default {
   name: "Dogs",
   props: {
     msg: String,
   },
-  components: {},
+  components: {
+    EditDog,
+    DogProperty,
+  },
   data() {
     return {
       name: null,
@@ -86,11 +94,6 @@ ul {
 
 li {
   display: inline-block;
-
-  &:hover {
-    cursor: pointer;
-    color: red;
-  }
 }
 
 a {

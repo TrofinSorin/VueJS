@@ -4,15 +4,15 @@
       <md-app-toolbar class="md-large md-dense md-primary">
         <div class="md-toolbar-row">
           <div class="md-toolbar-section-start">
-            <span class="md-title">My Vue App</span>
+            <span class="md-title">App</span>
           </div>
         </div>
 
         <div class="md-toolbar-row">
           <md-tabs class="md-primary" md-sync-route>
-            <md-tab to="/" md-label="Home" exact></md-tab>
-            <md-tab md-label="Hello-World" to="/hello-world"></md-tab>
-            <md-tab md-label="Example" to="/example"></md-tab>
+            <md-tab to="/" md-label="Dogs" exact></md-tab>
+            <md-tab md-label="Example1" to="/example"></md-tab>
+            <md-tab md-label="Example2" to="/example2"></md-tab>
           </md-tabs>
         </div>
       </md-app-toolbar>
@@ -29,12 +29,8 @@ export default {
   name: "App",
   data: () => ({
     menuVisible: false,
-    init: false,
   }),
-  mounted() {
-    console.log("mounted", this.$route.path);
-    this.init = true;
-  },
+  mounted() {},
   methods: {},
 };
 </script>
