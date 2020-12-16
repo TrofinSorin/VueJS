@@ -19,14 +19,20 @@
 
       <md-app-content>
         <router-view></router-view>
+        <Snackbar></Snackbar>
       </md-app-content>
     </md-app>
   </div>
 </template>
 
 <script>
+import Snackbar from "@shared/Snackbar";
+
 export default {
   name: "App",
+  components: {
+    Snackbar,
+  },
   data: () => ({
     menuVisible: false,
   }),

@@ -73,6 +73,12 @@ export default {
       };
 
       this.postDog(payload);
+
+      this.reset();
+    },
+
+    reset() {
+      Object.assign(this.$data, this.$options.data.call(this));
     },
   },
   computed: {

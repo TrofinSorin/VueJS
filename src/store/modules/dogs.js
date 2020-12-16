@@ -52,7 +52,6 @@ const actions = {
     return httpResponse.response.status === 200 && httpResponse;
   },
   async patchDog({ commit }, payload) {
-    console.log("payload:", payload);
     let httpResponse = {};
 
     await HttpService.patch(`/dogs/patch-dog`, payload).then((response) => {

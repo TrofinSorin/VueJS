@@ -29,6 +29,7 @@ const routes = [
   { path: "*", redirect: "/" },
 ];
 
+const store = createStore();
 // 3. Create the router instance and pass the `routes` option
 // You can pass in additional options here, but let's
 // keep it simple for now.
@@ -69,7 +70,11 @@ axios.interceptors.response.use(
       case HTTP_CODES.OK:
         break;
       case HTTP_CODES.CREATED:
-        // dispatch(snackbarActions.setSnackbarMessage('MESSAGE FROM SERVICE', 'success'));
+        store.dispatch("triggerMessage", {
+          message: "Created succesfully",
+          opened: true,
+          success: true,
+        });
 
         break;
 
@@ -92,6 +97,12 @@ axios.interceptors.response.use(
           Auth.generateUserToken(generatedUserToken);
         }
 
+        store.dispatch("triggerMessage", {
+          message: error?.response?.data?.message,
+          opened: true,
+          success: false,
+        });
+
         break;
       case HTTP_CODES.UNAUTHORIZED:
       case HTTP_CODES.FORBIDDEN:
@@ -100,20 +111,13 @@ axios.interceptors.response.use(
         break;
 
       default:
+        store.dispatch("triggerMessage", {
+          message: error?.response?.data?.message || "error",
+          opened: true,
+          success: false,
+        });
         break;
     }
-
-    // dispatch(
-    //   snackbarActions.setSnackbarMessage(
-    //     error.response &&
-    //       error.response.data &&
-    //       error.response.data.errors &&
-    //       error.response.data.errors.userMessage
-    //       ? error.response.data.errors.userMessage
-    //       : "error",
-    //     "error"
-    //   )
-    // );
 
     return Promise.reject(error);
   }
@@ -122,6 +126,6 @@ axios.interceptors.response.use(
 new Vue({
   render: (h) => h(App),
   router,
-  store: createStore(),
+  store: store,
   components: { App },
 }).$mount("#app");

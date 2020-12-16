@@ -49,8 +49,6 @@ export default {
         [this.name.toLowerCase()]: this.dogValue,
       };
 
-      console.log("payload:", payload);
-
       this.patchDog(payload).then((response) => {
         if (response) {
           this.editing = false;
