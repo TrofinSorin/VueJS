@@ -43,6 +43,13 @@ export default {
         return response;
       });
   },
+  deleteById(apiEndpoint, payload) {
+    return axios
+      .delete(this.API_PATH + apiEndpoint, { data: { id: payload } })
+      .then((response) => {
+        return response;
+      });
+  },
   patch(apiEndpoint, payload) {
     return axios
       .patch(this.API_PATH + apiEndpoint, payload)

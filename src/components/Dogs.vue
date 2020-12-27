@@ -7,8 +7,13 @@
       </p>
 
       <p>
-        <label for="type">Type</label>
-        <input id="type" v-model="type" type="text" name="type" />
+        <label for="type">Race</label>
+        <input id="type" v-model="race" type="text" name="race" />
+      </p>
+
+      <p>
+        <label for="age">Age</label>
+        <input id="age" v-model="age" type="text" name="age" />
       </p>
 
       <p>
@@ -23,9 +28,12 @@
         v-bind:index="index"
         v-bind:key="dog.id"
       >
-        <p class="testtt">Name: {{ dog.name }}</p>
-        <p>Rasa: {{ dog.type }}</p>
+        <DogProperty v-bind:name="'Name'" v-bind:dog="dog"></DogProperty>
+        <DogProperty v-bind:name="'Race'" v-bind:dog="dog"></DogProperty>
+        <DogProperty v-bind:name="'Age'" v-bind:dog="dog"></DogProperty>
         <button @click="deleteDog(dog.id)">Delete</button>
+
+        <EditDog v-bind:dog="dog"></EditDog>
       </li>
     </ul>
   </div>
@@ -33,16 +41,23 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
+import EditDog from "@shared/EditDog";
+import DogProperty from "@shared/DogProperty";
 
 export default {
   name: "Dogs",
   props: {
     msg: String,
   },
+  components: {
+    EditDog,
+    DogProperty,
+  },
   data() {
     return {
       name: null,
-      type: null,
+      race: null,
+      age: null,
     };
   },
   created() {
@@ -53,10 +68,17 @@ export default {
     addDog: function() {
       const payload = {
         name: this.name,
-        type: this.type,
+        race: this.race,
+        age: this.age,
       };
 
       this.postDog(payload);
+
+      this.reset();
+    },
+
+    reset() {
+      Object.assign(this.$data, this.$options.data.call(this));
     },
   },
   computed: {
@@ -78,11 +100,6 @@ ul {
 
 li {
   display: inline-block;
-
-  &:hover {
-    cursor: pointer;
-    color: red;
-  }
 }
 
 a {
