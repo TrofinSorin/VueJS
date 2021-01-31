@@ -2,7 +2,7 @@ import Vue from "vue";
 import App from "./App.vue";
 import Example from "./components/Example";
 import Example2 from "./components/Example2";
-import Dogs from "./components/Dogs";
+import Masters from "./components/Masters";
 import VueRouter from "vue-router";
 import "es6-promise/auto";
 import { createStore } from "./store/index.js";
@@ -23,9 +23,9 @@ Vue.use(VueRouter);
 Vue.use(Vuex);
 
 const routes = [
+  { path: "/", component: Masters },
   { path: "/example", component: Example },
   { path: "/example2", component: Example2 },
-  { path: "/", component: Dogs },
   { path: "*", redirect: "/" },
 ];
 

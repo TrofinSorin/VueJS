@@ -1,14 +1,10 @@
 <template>
-  <div class="dogs">
-    <form id="app" @submit.prevent="addDog">
+  <div class="masters">
+    <h1>Masters with Dogs</h1>
+    <form id="app" @submit.prevent="addMaster">
       <p>
         <label for="name">Name</label>
         <input id="name" v-model="name" type="text" name="name" />
-      </p>
-
-      <p>
-        <label for="type">Race</label>
-        <input id="type" v-model="race" type="text" name="race" />
       </p>
 
       <p>
@@ -20,43 +16,46 @@
         <input type="submit" value="Submit" />
       </p>
     </form>
-    <div v-if="allDogs.length > 0">
+    <div v-if="allMasters && allMasters.length > 0">
       <ul id="example-1">
         <li
           style="width: 100%"
-          v-for="(dog, index) in allDogs"
-          v-bind:item="dog.name"
+          v-for="(master, index) in allMasters"
+          v-bind:item="master.name"
           v-bind:index="index"
-          v-bind:key="dog.id"
+          v-bind:key="master.id"
         >
-          <DogProperty v-bind:name="'Name'" v-bind:dog="dog"></DogProperty>
-          <DogProperty v-bind:name="'Race'" v-bind:dog="dog"></DogProperty>
-          <DogProperty v-bind:name="'Age'" v-bind:dog="dog"></DogProperty>
-          <button @click="deleteDog(dog.id)">Delete</button>
-
-          <EditDog v-bind:dog="dog"></EditDog>
+          <MasterProperty
+            v-bind:name="'Name'"
+            v-bind:master="master"
+          ></MasterProperty>
+          <MasterProperty
+            v-bind:name="'Age'"
+            v-bind:master="master"
+          ></MasterProperty>
+          <button @click="deleteMaster(+master.id)">Delete</button>
         </li>
       </ul>
     </div>
     <div v-else>
-      <h2>No Dogs Available</h2>
+      <h2>No Masters Available</h2>
     </div>
   </div>
 </template>
 
 <script>
 import { mapGetters, mapActions } from "vuex";
-import EditDog from "@shared/EditDog";
-import DogProperty from "@shared/DogProperty";
+// import Dogs from "@components/Dogs";
+import MasterProperty from "@shared/MasterProperty";
 
 export default {
-  name: "Dogs",
+  name: "Masters",
   props: {
     msg: String,
   },
   components: {
-    EditDog,
-    DogProperty,
+    // Dogs,
+    MasterProperty,
   },
   data() {
     return {
@@ -66,18 +65,17 @@ export default {
     };
   },
   created() {
-    this.fetchDogs();
+    this.fetchMasters();
   },
   methods: {
-    ...mapActions(["fetchDogs", "postDog", "deleteDog"]),
-    addDog: function() {
+    ...mapActions(["fetchMasters", "postMaster", "deleteMaster"]),
+    addMaster: function() {
       const payload = {
         name: this.name,
-        race: this.race,
         age: this.age,
       };
 
-      this.postDog(payload);
+      this.postMaster(payload);
 
       this.reset();
     },
@@ -87,7 +85,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(["allDogs"]),
+    ...mapGetters(["allMasters"]),
   },
 };
 </script>
