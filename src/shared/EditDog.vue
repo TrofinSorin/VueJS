@@ -58,7 +58,9 @@ export default {
       age: this.dog.age,
     };
   },
-  mounted() {},
+  mounted() {
+    console.log("MOUNTED");
+  },
   methods: {
     ...mapActions(["editDog"]),
     editEditedDog: function() {
@@ -81,6 +83,12 @@ export default {
     },
   },
   computed: {},
+  watch: {
+    editDogState(newVal, oldVal) {
+      console.log("oeditDogState ldVal:", oldVal);
+      console.log("editDogStatenewVal:", newVal);
+    },
+  },
 };
 </script>
 

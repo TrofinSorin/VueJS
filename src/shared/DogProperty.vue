@@ -26,6 +26,7 @@ export default {
   name: "DogProperty",
   props: {
     name: String,
+    mastersId: Number,
     dog: {},
   },
   components: {},
@@ -37,6 +38,7 @@ export default {
   },
   mounted() {
     this.dogValue = this.showDogName;
+    console.log("DogProperty mastersId", this.mastersId);
   },
   methods: {
     ...mapActions(["patchDog"]),
@@ -47,6 +49,7 @@ export default {
       const payload = {
         id: +this.dog.id,
         [this.name.toLowerCase()]: this.dogValue,
+        mastersId: this.mastersId,
       };
 
       this.patchDog(payload).then((response) => {

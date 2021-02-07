@@ -15,7 +15,7 @@ export default {
   },
   get(apiEndpoint, params) {
     return axios
-      .get(this.API_PATH + apiEndpoint, params) // <--- Need this to return the promise
+      .get(this.API_PATH + apiEndpoint, { params }) // <--- Need this to return the promise
       .then((response) => {
         return response;
       })

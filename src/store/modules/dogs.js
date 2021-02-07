@@ -1,7 +1,7 @@
 import HttpService from "../../services/HttpService";
 
 const state = {
-  dogs: [],
+  dogs: {},
 };
 
 const getters = {
@@ -9,10 +9,19 @@ const getters = {
 };
 
 const actions = {
-  async fetchDogs({ commit }) {
-    const response = await HttpService.get("/dogs/read");
+  async fetchDogs({ commit }, mastersId) {
+    console.log("masterId:", mastersId);
+    const params = {
+      mastersId,
+    };
 
-    commit("setDogs", response.data);
+    commit("setLoading", { value: true, mastersId });
+
+    const response = await HttpService.get("/dogs/read", params);
+    const payload = { data: response.data, mastersId };
+
+    commit("setDogs", payload);
+    commit("setLoading", { value: false, mastersId });
   },
   async postDog({ commit }, payload) {
     const dogResponse = await HttpService.post("/dogs/dog-create", payload);
@@ -24,17 +33,20 @@ const actions = {
 
       commit("addDog", responsePayload);
 
-      this.dispatch("fetchDogs");
+      this.dispatch("fetchDogs", payload.mastersId);
     }
   },
-  async deleteDog({ commit }, id) {
-    await HttpService.deleteById(`/dogs/delete`, id).then((response) => {
-      if (response) {
-        // When Delete Dog 200 -> GET DOGS
-        commit("deleteDog", id);
-        this.dispatch("fetchDogs");
+  async deleteDog({ commit }, payload) {
+    console.log("deleteDog mastersId:", payload.mastersId);
+    await HttpService.deleteById(`/dogs/delete`, payload.id).then(
+      (response) => {
+        if (response) {
+          // When Delete Dog 200 -> GET DOGS
+          commit("deleteDog", payload.id);
+          this.dispatch("fetchDogs", payload.mastersId);
+        }
       }
-    });
+    );
   },
   async editDog({ commit }, payload) {
     let httpResponse = {};
@@ -57,7 +69,7 @@ const actions = {
     await HttpService.patch(`/dogs/patch-dog`, payload).then((response) => {
       if (response) {
         commit("patchDog", payload);
-        this.dispatch("fetchDogs");
+        this.dispatch("fetchDogs", payload.mastersId);
 
         httpResponse.payload = payload;
         httpResponse.response = response;
@@ -69,15 +81,36 @@ const actions = {
 };
 
 const mutations = {
-  setDogs: (state, dogs) => (state.dogs = dogs),
-  addDog: (state, dog) => state.dogs.push(dog),
-  deleteDog: (state, id) => {
-    const index = state.dogs.findIndex((dog) => dog.id === id);
+  setDogs: (state, payload) => {
+    const dogs = Object.assign({}, state.dogs);
+    dogs[payload.mastersId] = {
+      data: payload.data,
+      loading: false,
+    };
 
-    state.dogs.splice(index, 1);
+    state.dogs = { ...dogs };
   },
+  // addDog: (state, dog) => state.dogs.push(dog),
+  // deleteDog: (state, id) => {
+  //   const index = state.dogs.findIndex((dog) => dog.id === id);
+
+  //   state.dogs.splice(index, 1);
+  // },
+
+  addDog: (state) => state,
+  deleteDog: (state) => state,
   editDog: (state) => state,
   patchDog: (state) => state,
+  setLoading: (state, payload) => {
+    const dogs = Object.assign({}, state.dogs);
+
+    dogs[payload.mastersId] = {
+      data: dogs[payload.mastersId] && dogs[payload.mastersId].data,
+      loading: payload.value,
+    };
+
+    state.dogs = { ...dogs };
+  },
 };
 
 export default {

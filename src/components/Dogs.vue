@@ -20,42 +20,73 @@
         <input type="submit" value="Submit" />
       </p>
     </form>
-    <div v-if="allDogs.length > 0">
-      <ul id="example-1">
-        <li
-          style="width: 100%"
-          v-for="(dog, index) in allDogs"
-          v-bind:item="dog.name"
-          v-bind:index="index"
-          v-bind:key="dog.id"
-        >
-          <DogProperty v-bind:name="'Name'" v-bind:dog="dog"></DogProperty>
-          <DogProperty v-bind:name="'Race'" v-bind:dog="dog"></DogProperty>
-          <DogProperty v-bind:name="'Age'" v-bind:dog="dog"></DogProperty>
-          <button @click="deleteDog(dog.id)">Delete</button>
-
-          <EditDog v-bind:dog="dog"></EditDog>
-        </li>
-      </ul>
+    <div
+      class="dogs-loader"
+      v-if="allDogs[this.mastersId] && allDogs[this.mastersId].loading"
+    >
+      <md-progress-spinner md-mode="indeterminate"></md-progress-spinner>
     </div>
-    <div v-else>
-      <h2>No Dogs Available</h2>
+    <div v-else class="all-dogs">
+      <div
+        v-if="
+          allDogs[this.mastersId] &&
+            allDogs[this.mastersId].data &&
+            allDogs[this.mastersId].data.length > 0
+        "
+      >
+        <ul id="dog-list">
+          <li
+            class="dog-item"
+            style="width: 100%"
+            v-for="(dog, index) in allDogs[this.mastersId].data"
+            v-bind:item="dog.name"
+            v-bind:index="index"
+            v-bind:key="dog.id"
+          >
+            <h2 class="dog-title">Dog</h2>
+            <DogProperty
+              v-bind:name="'Name'"
+              v-bind:dog="dog"
+              v-bind:mastersId="mastersId"
+            ></DogProperty>
+            <DogProperty
+              v-bind:name="'Race'"
+              v-bind:dog="dog"
+              v-bind:mastersId="mastersId"
+            ></DogProperty>
+            <DogProperty
+              v-bind:name="'Age'"
+              v-bind:dog="dog"
+              v-bind:mastersId="mastersId"
+            ></DogProperty>
+            <button class="delete-dog" @click="deleteDogClickHandler(dog.id)">
+              Delete Dog
+            </button>
+
+            <!-- <EditDog v-bind:dog="dog"></EditDog> -->
+          </li>
+        </ul>
+      </div>
+      <div v-else>
+        <h2>No Dogs Available</h2>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import { mapGetters, mapActions } from "vuex";
-import EditDog from "@shared/EditDog";
+// import EditDog from "@shared/EditDog";
 import DogProperty from "@shared/DogProperty";
 
 export default {
   name: "Dogs",
   props: {
     msg: String,
+    mastersId: Number,
   },
   components: {
-    EditDog,
+    // EditDog,
     DogProperty,
   },
   data() {
@@ -66,7 +97,7 @@ export default {
     };
   },
   created() {
-    this.fetchDogs();
+    this.fetchDogs(this.mastersId);
   },
   methods: {
     ...mapActions(["fetchDogs", "postDog", "deleteDog"]),
@@ -75,11 +106,20 @@ export default {
         name: this.name,
         race: this.race,
         age: this.age,
+        mastersId: this.mastersId,
       };
 
       this.postDog(payload);
-
       this.reset();
+    },
+
+    deleteDogClickHandler: function(dogId) {
+      const payload = {
+        id: dogId,
+        mastersId: this.mastersId,
+      };
+
+      this.deleteDog(payload);
     },
 
     reset() {
@@ -101,6 +141,34 @@ h3 {
 ul {
   list-style-type: none;
   padding: 0;
+}
+
+.dogs-loader {
+  margin: 0 auto;
+  text-align: center;
+  width: 100%;
+}
+
+#dog-list {
+  display: flex;
+  flex-direction: column;
+
+  .dog-item {
+    border: 1px solid black;
+    border-radius: 2rem;
+    margin-top: 1rem;
+  }
+
+  .delete-dog {
+    border-radius: 2rem;
+    width: 100%;
+  }
+
+  .dog-title {
+    margin: 0 auto;
+    text-align: center;
+    width: 100%;
+  }
 }
 
 li {
